@@ -9,4 +9,4 @@
     playbook: "ping-test-ec2.yaml"
     credential: "Machine SSH"
     state: "present"
-    tower_config_file: ../../../tower_cli.cfg
+    tower_config_file: ~/tower_cli.cfg
