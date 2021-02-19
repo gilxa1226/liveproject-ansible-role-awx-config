@@ -8,7 +8,6 @@
     inventory: "aws-inventory"
     project: "test instances"
     playbook: "ping-test-ec2.yaml"
-    credentials:
-      - "Machine SSH"
+    credential: "Machine SSH"
     state: "present"
     tower_config_file: ../../../tower_cli.cfg
