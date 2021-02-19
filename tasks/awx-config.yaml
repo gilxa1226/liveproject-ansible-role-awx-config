@@ -11,4 +11,4 @@
     credentials:
       - "Machine SSH"
     state: "present"
-
+    tower_config_file: ../../../tower_cli.cfg
