@@ -1,5 +1,16 @@
 ---
 
+- name: Create AWS API Credential
+  tower_credential:
+    name: "AWS Acc. 722269482003"
+    kind: aws
+    organization: 'Unicorn Bank Corp.'
+    # AWS Access Key
+    username: "{{ aws_access_key }}"
+    # AWS Secret Key
+    password: "{{ aws_secret_key }}"
+    state: present
+
 - name: Create Ping Template Job
   tower_job_template:
     name: "Ping Test Instances"
@@ -24,7 +35,7 @@
 
 - name: Create Destroy Test Instances Job
   tower_job_template:
-    name: "Create Test Instances"
+    name: "Destroy Test Instances"
     job_type: "run"
     inventory: "AWS API"
     project: "test instances"
