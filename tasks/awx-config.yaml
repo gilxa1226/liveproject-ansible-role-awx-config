@@ -10,3 +10,25 @@
     credential: "Machine SSH"
     state: "present"
     tower_config_file: ~/tower_cli.cfg
+
+- name: Create Create Test Instances Job
+  tower_job_template:
+    name: "Create Test Instances"
+    job_type: "run"
+    inventory: "AWS API"
+    project: "test instances"
+    playbook: "create-test-ec2.yaml"
+    credential: "AWS Acc. 722269482003"
+    state: "present"
+    tower_config_file: ~/tower_cli.cfg
+
+- name: Create Destroy Test Instances Job
+  tower_job_template:
+    name: "Create Test Instances"
+    job_type: "run"
+    inventory: "AWS API"
+    project: "test instances"
+    playbook: "destroy-test-ec2.yaml"
+    credential: "AWS Acc. 722269482003"
+    state: "present"
+    tower_config_file: ~/tower_cli.cfg
