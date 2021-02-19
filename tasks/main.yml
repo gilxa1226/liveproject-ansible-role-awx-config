@@ -1,2 +1,4 @@
 ---
 # tasks file for .
+- name: Configure AWX for liveproject
+  include_tasks: awx-config.yaml

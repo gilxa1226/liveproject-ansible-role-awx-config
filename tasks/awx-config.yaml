@@ -1,0 +1,14 @@
+---
+
+- name: Create Ping Template Job
+  tower_job_template:
+    name: "Ping Test Instances"
+    job_type: "run"
+    organization: "Unicorn Bank Corp."
+    inventory: "aws-inventory"
+    project: "test instances"
+    playbook: "ping-test-ec2.yaml"
+    credentials:
+      - "Machine SSH"
+    state: "present"
+
