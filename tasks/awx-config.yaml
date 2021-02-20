@@ -71,10 +71,15 @@
     source: ec2
     inventory: aws-inventory
     credential: "AWS Acc. 722269482003"
-    host_filter: 'tag:Name=managed*'
+    instance_filters: 'tag:Name=managed*'
     source_vars: "vpc_destination_variable: private_ip_address"
     overwrite: true
 
+- name: update aws-inventory source
+  tower_inventory_source_update:
+    name: "AWS Sources"
+    inventory: "aws-inventory"
+    organization: "Unicorn Bank Corp."
 
 ### Create Projects
 - name: Create Test Instances project
@@ -83,11 +88,16 @@
     description: "liveproject test instances"
     organization: "Unicorn Bank Corp."
     scm_type: git
+    scm_branch: master
     scm_credential: "Source Control - liveproject"
     scm_url: git@github.com:gilxa1226/liveproject-ansible-playbooks.git
     scm_delete_on_update: yes
     scm_clean: yes
     state: present
+
+- name: Update Test Instances project sources
+  tower_project_update:
+    project: "test instances"
 
 ### Create Templates
 - name: Create Ping Template Job
