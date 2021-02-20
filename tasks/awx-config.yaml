@@ -24,10 +24,9 @@
     description: github credential
     organization: 'Unicorn Bank Corp.'
     kind: scm
-    inputs:
-      username: git@github.com
-      ssh_key_data: "{{ ssh_key }}"
-      ssh_key_unlock: "{{ ssh_key_password }}"
+    username: git@github.com
+    ssh_key_data: "{{ ssh_key }}"
+    ssh_key_unlock: "{{ ssh_key_password }}"
 
 - name: Create Machine SSH Credential
   tower_credential:
@@ -36,10 +35,9 @@
     organization: 'Unicorn Bank Corp.'
     kind: ssh
     state: present
-    inputs:
-      ssh_key_data: "{{ ssh_key }}"
-      ssh_key_unlock: "{{ ssh_key_password }}"
-      username: ec2-user
+    ssh_key_data: "{{ ssh_key }}"
+    ssh_key_unlock: "{{ ssh_key_password }}"
+    username: ec2-user
     become_method: sudo
     
 
