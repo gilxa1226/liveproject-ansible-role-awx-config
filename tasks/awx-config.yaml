@@ -1,5 +1,22 @@
 ---
 
+### Create users
+- name: Create liveproject user
+  tower_user:
+    username: liveproject
+    password: "{{ liveproject_user_password }}"
+    email: liveproject@liveproject.local
+    first_name: Live
+    last_name: Project
+    state: present
+
+### Create Organizations
+- name: Create Unicorn Bank Corp. Organization
+  tower_organization:
+    name:  "Unicorn Bank Corp."
+    description: "Live Project Organization"
+    state: present
+
 ### Create credentials
 - name: Create Source Control Credential
   tower_credential:
@@ -34,6 +51,44 @@
     password: "{{ aws_secret_key }}"
     state: present
 
+
+### Create Inventories
+- name: Create AWS API inventory
+  tower_inventory:
+    name: 'AWS API'
+    description: 'Special API Inventory'
+    organization: 'Unicorn Bank Corp.'
+
+- name: Create aws-inventory inventory
+  tower_inventory:
+    name: 'aws-inventory'
+    description: 'dynamic inventory from AWS hosts'
+    organization: 'Unicorn Bank Corp.'
+
+- name: Create aws-inventory Source
+  tower_inventory_source:
+    name: "AWS Sources"
+    source: ec2
+    inventory: aws-inventory
+    credential: "AWS Acc. 722269482003"
+    host_filter: 'tag:Name=managed*'
+    source_vars: "vpc_destination_variable: private_ip_address"
+    overwrite: true
+
+
+### Create Projects
+- name: Create Test Instances project
+  tower_project:
+    name: "test instances"
+    description: "liveproject test instances"
+    organization: "Unicorn Bank Corp."
+    scm_type: git
+    scm_credential: "Source Control - liveproject"
+    scm_url: git@github.com:gilxa1226/liveproject-ansible-playbooks.git
+    scm_delete_on_update: yes
+    scm_clean: yes
+    state: present
+
 ### Create Templates
 - name: Create Ping Template Job
   tower_job_template:
@@ -44,7 +99,6 @@
     playbook: "ping-test-ec2.yaml"
     credential: "Machine SSH"
     state: "present"
-    tower_config_file: ~/tower_cli.cfg
 
 - name: Create Create Test Instances Job
   tower_job_template:
@@ -55,7 +109,6 @@
     playbook: "create-test-ec2.yaml"
     credential: "AWS Acc. 722269482003"
     state: "present"
-    tower_config_file: ~/tower_cli.cfg
 
 - name: Create Destroy Test Instances Job
   tower_job_template:
@@ -66,4 +119,3 @@
     playbook: "destroy-test-ec2.yaml"
     credential: "AWS Acc. 722269482003"
     state: "present"
-    tower_config_file: ~/tower_cli.cfg

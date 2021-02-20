@@ -5,3 +5,5 @@ aws_secret_key:
 
 ssh_key: 
 ssh_key_password:
+
+liveproject_user_password:
