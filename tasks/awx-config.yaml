@@ -1,5 +1,28 @@
 ---
 
+### Create credentials
+- name: Create Source Control Credential
+  tower_credential:
+    name: "Source Control - liveproject"
+    description: github credential
+    organization: 'Unicorn Bank Corp.'
+    kind: scm
+    username: git@github.com
+    ssh_key_data: "{{ ssh_key }}"
+    ssh_key_unlock: "{{ ssh_key_password }}"
+
+- name: Create Machine SSH Credential
+  tower_credential:
+    name: "Machine SSH"
+    description: Remote Machine SSH Credential
+    organization: 'Unicorn Bank Corp.'
+    kind: ssh
+    state: present
+    ssh_key_data: "{{ ssh_key }}"
+    ssh_key_unlock: "{{ ssh_key_password }}"
+    become_method: sudo
+    username: ec2-user
+
 - name: Create AWS API Credential
   tower_credential:
     name: "AWS Acc. 722269482003"
@@ -11,6 +34,7 @@
     password: "{{ aws_secret_key }}"
     state: present
 
+### Create Templates
 - name: Create Ping Template Job
   tower_job_template:
     name: "Ping Test Instances"
