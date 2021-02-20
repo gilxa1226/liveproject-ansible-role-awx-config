@@ -24,9 +24,10 @@
     description: github credential
     organization: 'Unicorn Bank Corp.'
     kind: scm
-    username: git@github.com
-    ssh_key_data: "{{ ssh_key | b64decode }}"
-    ssh_key_unlock: "{{ ssh_key_password }}"
+    inputs:
+      username: git@github.com
+      ssh_key_data: "{{ ssh_key['content'] | b64decode }}"
+      ssh_key_unlock: "{{ ssh_key_password }}"
 
 - name: Create Machine SSH Credential
   tower_credential:
@@ -35,10 +36,12 @@
     organization: 'Unicorn Bank Corp.'
     kind: ssh
     state: present
-    ssh_key_data: "{{ ssh_key | b64decode }}"
-    ssh_key_unlock: "{{ ssh_key_password }}"
+    inputs:
+      ssh_key_data: "{{ ssh_key['content'] | b64decode }}"
+      ssh_key_unlock: "{{ ssh_key_password }}"
+      username: ec2-user
     become_method: sudo
-    username: ec2-user
+    
 
 - name: Create AWS API Credential
   tower_credential:
